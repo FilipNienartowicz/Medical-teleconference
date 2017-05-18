@@ -1,13 +1,47 @@
 <?php
 		session_start();
-		if(!isset($_SESSION['name']))
-		{
+		unset($_SESSION['new-room']);
+		if(!isset($_SESSION['name'])){
 			header("Location: main_site.php");
 		}
 		
+		if(!isset($_SESSION['new_room_name'])){
+			$_SESSION['new_room_name'] = "";
+		}
+		
+		
 		if($_POST){
-			$_SESSION['room'] = $_POST['room'];
-			header("Location: conference.php");
+			unset($_SESSION['new_room_error']);
+			if(isset($_POST['room'])) { 
+				$_SESSION['room'] = $_POST['room'];
+				header("Location: conference.php");
+			}
+			
+			if(isset($_POST['new-room'])) { 
+				$db = new mysqli("localhost", "root", "", "medical-teleconference");
+				$stmt = $db->prepare("select * from rooms where NAME = ?");
+				$stmt->bind_param("s", $_POST['new-room']);
+				
+				$stmt->execute();
+				$stmt->store_result();	
+				if($stmt->num_rows > 0)
+				{
+					$_SESSION['new_room_name'] = $_POST['new-room'];
+					$_SESSION['new_room_error']="true";
+					$stmt->close();
+					$db->close();
+					header("Location: rooms.php");
+				}else{
+					unset($_SESSION['room_name_error']);
+					unset($_SESSION['new_room_error']);
+					unset($_SESSION['participants']);
+					$_SESSION['participant_name']="";
+					$_SESSION['new-room'] = $_POST['new-room'];
+					$stmt->close();
+					$db->close();
+					header("Location: new_room.php");
+				}
+			}
 		}
 ?>	 
 
@@ -39,7 +73,7 @@
 			$stmt->store_result();	
 			
 			while($stmt->fetch()){
-				echo '<li>' . $NAME . '  <input type="submit" value="'. $NAME .'" name="room"/>' . '</li>';
+				echo '<li><input type="submit" value="'. $NAME .'" name="room"/>' . '</li>';
 			}
 			
 			$stmt->free_result();
@@ -49,12 +83,14 @@
 	 </ul>
 	 </form>
 	 
-	 <form action="rooms.php">
-		<h2>Załóż nowy pokój:</h2>
-		<div>Nazwa:<input type="text" name="new-room" value="" class="form-control" required=""/></div>
-		<h2>Lista uczestników:</h2>
-		<div>Dodaj uczestników: <input type="text" name="participant" value=""/></div>
-		<input type="submit" value="Załóż "/>
+	 <form action="rooms.php" method="post">
+		<div>Nazwa: <input type="text" name="new-room" value="<?=$_SESSION['new_room_name']?>" class="form-control" required=""/></div>
+		<input type="submit" value="Załóż nowy pokój"/>
+		<?php 
+			if(isset($_SESSION['new_room_error'])){
+				echo '<div>Pokój o podanej nazwie już istnieje!</div>';
+			}
+		?>
 	</form>
 </body>
 </html>
