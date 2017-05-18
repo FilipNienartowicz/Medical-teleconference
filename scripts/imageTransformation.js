@@ -1,14 +1,18 @@
-function setImageToCanvas() {
-  var canvas = document.getElementById('imageToTransform');
-  var context = canvas.getContext('2d');
-  var imageObj = new Image();
-  var nameOfImage = document.getElementById('imageName').value;
+var imageFile = document.getElementById('imageFile');
+imageFile.addEventListener('change', handleImage, false);
+var canvas = document.getElementById('imageToTransform');
+var context = canvas.getContext('2d');
 
-  imageObj.src = nameOfImage;
-
-  imageObj.onload = function() {
-    canvas.width = imageObj.width;
-    canvas.height = imageObj.height;
-    context.drawImage(imageObj, 0, 0);
-  };
+function handleImage(e){
+    var reader = new FileReader();
+    reader.onload = function(event){
+        var img = new Image();
+        img.onload = function(){
+            canvas.width = img.width;
+            canvas.height = img.height;
+            context.drawImage(img,0,0);
+        }
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);
 }
