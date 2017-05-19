@@ -17,14 +17,20 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../scripts/imageTransformation2.js"></script>
 </head>
-<body>
+<body onmousedown="return false;">
 	<h1>Telekonferencja</h1>
 	<h1> Witaj <?=$_SESSION['name']?></h1>
 	<h1> W pokoju <?=$_SESSION['room']?></h1>
 	<div class="col-md-6">
 		<div class="row">
-			<canvas id="imageToTransform"></canvas>
+			<canvas id="imageToTransform" width="500" height="500"></canvas>
+		</div>
+		<div class="row">
+			<input type="button" id="plus" value="+" />
+			<input type="button" id="minus" value="-" />
+			<p id="urlWhy">asdf</p>
 		</div>
 		<div class="row">
 			<form method="post" enctype="multipart/form-data">
@@ -60,7 +66,7 @@
 					}
 				}
 			?>
-			<script type="text/javascript" src="../scripts/imageTransformation.js"></script> <!--TODO: tutaj za to nie wiem jak zrobić żeby nie znikało po zapisie do bazy
+			<script type="text/javascript" src="../scripts/imageTransformation.js"></script> <!--TODO: tutaj za to nie wiem jak zrobić żeby nie znikało po zapisie do bazy-->
 		</div>
 	</div>
 </body>
