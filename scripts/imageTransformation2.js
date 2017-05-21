@@ -5,7 +5,6 @@ function draw(scale, translatePos, url){
     var url = canvas.toDataURL();
 
     img.onload = function() {
-      // clear canvas
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.save();
       context.translate(translatePos.x, translatePos.y);

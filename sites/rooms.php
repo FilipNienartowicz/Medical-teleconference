@@ -4,26 +4,27 @@
 		if(!isset($_SESSION['name'])){
 			header("Location: main_site.php");
 		}
-		
+
 		if(!isset($_SESSION['new_room_name'])){
 			$_SESSION['new_room_name'] = "";
 		}
-		
-		
+
+
 		if($_POST){
 			unset($_SESSION['new_room_error']);
-			if(isset($_POST['room'])) { 
+			if(isset($_POST['room'])) {
 				$_SESSION['room'] = $_POST['room'];
+				$_SESSION['roomID'] = $_POST['roomID'];
 				header("Location: conference.php");
 			}
-			
-			if(isset($_POST['new-room'])) { 
+
+			if(isset($_POST['new-room'])) {
 				$db = new mysqli("localhost", "root", "", "medical-teleconference");
 				$stmt = $db->prepare("select * from rooms where NAME = ?");
 				$stmt->bind_param("s", $_POST['new-room']);
-				
+
 				$stmt->execute();
-				$stmt->store_result();	
+				$stmt->store_result();
 				if($stmt->num_rows > 0)
 				{
 					$_SESSION['new_room_name'] = $_POST['new-room'];
@@ -43,7 +44,7 @@
 				}
 			}
 		}
-?>	 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -55,38 +56,39 @@
 <body data-parsley-validate>
      <h1> Witaj <?=$_SESSION['name']?></h1>
 	 <h2>Pokoje, do których masz dostęp:</h2>
-	 
+
 	 <form action="rooms.php" method="post">
 	 <ul>
 		 <?php
 			$db = new mysqli("localhost", "root", "", "medical-teleconference");
 			$db -> query ('SET NAMES utf8');
 			$db -> query ('SET CHARACTER_SET utf8_polish_ci');
-			
-			$stmt = $db->prepare("select NAME from rooms where id IN 
-				(select p.ROOM_ID from users as u 
-				join participants as p 
+
+			$stmt = $db->prepare("select ID, NAME from rooms where id IN
+				(select p.ROOM_ID from users as u
+				join participants as p
 				on u.ID=p.USER_ID where NAME = ?)");
 			$stmt->bind_param("s", $_SESSION['name']);
 			$stmt->execute();
-			$stmt->bind_result($NAME);
-			$stmt->store_result();	
-			
+			$stmt->bind_result($ID, $NAME);
+			$stmt->store_result();
+
 			while($stmt->fetch()){
-				echo '<li><input type="submit" value="'. $NAME .'" name="room"/>' . '</li>';
+				echo '<li><form action="rooms.php" method="post"><input type="hidden" value="'. $ID .'" name="roomID"/>
+				<input type="submit" value="'. $NAME .'" name="room"/></form>' . '</li>';
 			}
-			
+
 			$stmt->free_result();
 			$stmt->close();
 			$db->close();
 		?>
 	 </ul>
 	 </form>
-	 
+
 	 <form action="rooms.php" method="post">
 		<div>Nazwa: <input type="text" name="new-room" value="<?=$_SESSION['new_room_name']?>" class="form-control" required=""/></div>
 		<input type="submit" value="Załóż nowy pokój"/>
-		<?php 
+		<?php
 			if(isset($_SESSION['new_room_error'])){
 				echo '<div>Pokój o podanej nazwie już istnieje!</div>';
 			}

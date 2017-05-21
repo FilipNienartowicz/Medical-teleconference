@@ -23,17 +23,17 @@
 	<h1>Telekonferencja</h1>
 	<h1> Witaj <?=$_SESSION['name']?></h1>
 	<h1> W pokoju <?=$_SESSION['room']?></h1>
-	<div class="col-md-6">
+	<div class="col-md-6 col-lg-6">
 		<div class="row">
-			<canvas id="imageToTransform" width="500" height="500"></canvas>
+			<canvas id="imageToTransform" width="800" height="600"></canvas>
 		</div>
 		<div class="row">
 			<input type="button" id="plus" value="+" />
 			<input type="button" id="minus" value="-" />
-			<p id="urlWhy">asdf</p>
+			<p id="urlWhy">Picture url will appear here</p>
 		</div>
 		<div class="row">
-			<form method="post" enctype="multipart/form-data">
+			<form id="uploadImage" method="post" action="conference.php" enctype="multipart/form-data">
 				<input type="file" name="image" id="imageFile" />
 				<input type="submit" name="submit" value="Upload" />
 			</form>
@@ -52,12 +52,8 @@
 				function saveImageFile($image) {
 					$con = mysql_connect("localhost", "root", "");
 					mysql_select_db("medical-teleconference", $con);
-					$roomName = $_SESSION['room'];
-					$query1 = "select ID from rooms where NAME = '$roomName'";
-					$result1 = mysql_query($query1, $con);
-					echo $result1;
-					$value = mysql_fetch_field($result1);
-					$query = "insert into photos (ROOM_ID, PHOTO) values ('2', '$image')"; //TODO: nie wiem jak to id znaleźć bo z selecta wychodzi "resource id #7"
+					$id = $_SESSION['roomID'];
+					$query = "insert into `photos` (`ROOM_ID`, `PHOTO`) values ('$id', '$image')";
 					$result = mysql_query($query, $con);
 					if($result) {
 						echo "<br/> Image uploaded";
