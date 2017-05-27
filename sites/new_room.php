@@ -13,6 +13,8 @@
 			$_SESSION['participants'] = array(); 
 		}
 		
+		unset($_SESSION['new_room_name']);
+		
 		if($_POST){
 			unset($_SESSION['wrong_participant']);
 			unset($_SESSION['room_name_error']);
@@ -165,54 +167,68 @@
      <link rel="stylesheet" type="text/css" href="../css/new_room.css" title="Arkusz stylów CSS">
 </head>
 <body data-parsley-validate>
-     <h1> Witaj <?=$_SESSION['name']?></h1>
-	 
-	 
-		<h2>Dostosuj pokój:</h2>
-	<form action="new_room.php" method="post">
-		<div>Nazwa: <input type="text" name="room_name" value="<?=$_SESSION['new-room']?>" class="form-control" required=""/>
-		<input type="submit" value="Zmień"/>
-		<?php 
-			if(isset($_SESSION['room_name_error'])){
-				echo '<div>Pokój o podanej nazwie już istnieje!</div>';
-			}
-		?>
+	<div class="page-wrap">
+		<script src="../scripts/header.js"></script>
+		<div class="main">
+			<h1 class="welcome col-lg-5 col-md-7 col-sm-10"> Witaj <?=$_SESSION['name']?></h1>
 		</div>
-	</form>
-	
-	<form action="new_room.php" method="post">
-		<h2>Lista uczestników:</h2>
-		<ul>
-			<?php foreach ($_SESSION['participants'] as $v): ?>
-					<li name="delete" value="<?=$v?>"><?=$v?> <input type="submit" value="Usuń"/></li>
-			<?php endforeach; ?>
-		</ul>
-	</form>
-	
-	<form action="new_room.php" method="post">
-			<div>Dodaj uczestników: <input type="text" name="participant" value="<?=$_SESSION['participant_name']?>" class="form-control" required=""/>
-				<input type="submit" value="Dodaj"/>
-				<?php 
-					if(isset($_SESSION['wrong_participant'])){
-						echo '<div>Podany uczestnik nie istnieje!</div>';
-					}
-				?>
+		
+		<div class="main">
+			<div class="field backcolor-lightgreen col-lg-5 col-md-7 col-sm-10">
+				<div class="cont">
+					<h2>Dostosuj pokój:</h2>
+					<form action="new_room.php" method="post" class="cont backcolor-midgreen">
+							<p>Nazwa: </p>
+							<input type="text" name="room_name" value="<?=$_SESSION['new-room']?>" class="form-control" required=""/>
+							<button class="button button-color-goto">Zmień</button>
+							<?php 
+								if(isset($_SESSION['room_name_error'])){
+									echo '<div>Pokój o podanej nazwie już istnieje!</div>';
+								}
+							?>
+					</form>
+				</div>
+				
+				<div class="cont">
+					<form action="new_room.php" method="post" class="cont backcolor-midgreen">
+						<h2>Lista uczestników:</h2>
+							<?php foreach ($_SESSION['participants'] as $v): ?>
+									<div class="line">
+										<h3><?=$v?></h3>
+										<button value="'. $v .'" name="delete" class="button button-color-goto">Usuń</button>
+									</div>
+							<?php endforeach; ?>
+					</form>
+				</div>
+				<div class="cont">
+					<form action="new_room.php" method="post" class="cont backcolor-midgreen">
+							<h2>Dodaj uczestników:</h2>
+							<input type="text" name="participant" value="<?=$_SESSION['participant_name']?>" class="form-control" required=""/>
+							<button class="button button-color-goto">Dodaj</button>
+							<?php 
+								if(isset($_SESSION['wrong_participant'])){
+									echo '<div>Podany uczestnik nie istnieje!</div>';
+								}
+							?>
+					</form>
+				</div>
+				<div class="line">
+					<form action="new_room.php" method="post">
+							<input type="submit" name="save" value="Utwórz pokój" class="button button-color-goto"/>
+					</form>
+					
+					<form action="rooms.php">
+							<input type="submit" name="return" value="Powrót" class="button button-color-cancel"/>
+					</form>
+					
+					<form action="new_room.php" method="post">
+							<input type="submit" name="to_room" value="Zapisz i przejdź do pokoju" class="button button-color-add"/>
+					</form>
+				</div>
+				
 			</div>
-	</form>
-	
-	<div>
-		<form action="new_room.php" method="post">
-				<input type="submit" name="save" value="Utwórz pokój"/>
-		</form>
-		
-		<form action="rooms.php">
-				<input type="submit" name="return" value="Powrót"/>
-		</form>
-		
-		<form action="new_room.php" method="post">
-				<input type="submit" name="to_room" value="Zapisz i przejdź do pokoju"/>
-		</form>
+		</div>
 	</div>
-	
+	<script src="../scripts/footer.js"></script>
 </body>
 </html>
