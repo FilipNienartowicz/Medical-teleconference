@@ -30,6 +30,8 @@
 		<div class="row">
 			<input type="button" id="plus" value="+" />
 			<input type="button" id="minus" value="-" />
+			<input type="button" id="rotate" value="rotate" />
+			<input type="button" id="mix" value="sharpen" />
 			<p id="urlWhy">Picture url will appear here</p>
 		</div>
 		<div class="row">
@@ -37,6 +39,7 @@
 				<input type="file" name="image" id="imageFile" />
 				<input type="submit" name="submit" value="Upload" />
 			</form>
+			<script type="text/javascript" src="../scripts/imageTransformation.js"></script> <!--TODO: tutaj za to nie wiem jak zrobić żeby nie znikało po zapisie do bazy-->
 			<?php
 				if(isset($_POST['submit'])) {
 					if(getimagesize($_FILES['image']['tmp_name']) == FALSE) {
@@ -62,7 +65,6 @@
 					}
 				}
 			?>
-			<script type="text/javascript" src="../scripts/imageTransformation.js"></script> <!--TODO: tutaj za to nie wiem jak zrobić żeby nie znikało po zapisie do bazy-->
 		</div>
 	</div>
 </body>

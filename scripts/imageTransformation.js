@@ -9,6 +9,7 @@ function handleImage(e){
   reader.onload = function(event){
       var img = new Image();
       img.onload = function(){
+        context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(img,0,0);
       }
       img.src = event.target.result;
