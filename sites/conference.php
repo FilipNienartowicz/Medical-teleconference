@@ -28,52 +28,51 @@
 				<h1>W pokoju <?=$_SESSION['room']?></h1>
 			</div>
 		</div>
-		<div class="main">
-	
-			<div class="col-md-6 col-lg-6">
-				<div class="row">
-					<canvas id="imageToTransform" width="800" height="600"></canvas>
-				</div>
-				<div class="row">
-					<input type="button" id="plus" value="+" />
-					<input type="button" id="minus" value="-" />
-					<input type="button" id="rotate" value="rotate" />
-					<input type="button" id="mix" value="sharpen" />
-					<p id="urlWhy">Picture url will appear here</p>
-				</div>
-				<div class="row">
-					<form id="uploadImage" method="post" action="conference.php" enctype="multipart/form-data">
-						<input type="file" name="image" id="imageFile" />
-						<input type="submit" name="submit" value="Upload" />
-					</form>
-					<script type="text/javascript" src="../scripts/imageTransformation.js"></script> <!--TODO: tutaj za to nie wiem jak zrobić żeby nie znikało po zapisie do bazy-->
-					<?php
-						if(isset($_POST['submit'])) {
-							if(getimagesize($_FILES['image']['tmp_name']) == FALSE) {
-								echo "Pleas select image";
-							} else {
-								$image = addslashes($_FILES['image']['tmp_name']);
-								$name = addslashes($_FILES['image']['name']);
-								$image = file_get_contents($image);
-								$image = base64_encode($image);
-								saveImageFile($image);
-							}
-						}
-						function saveImageFile($image) {
-							$con = mysql_connect("localhost", "root", "");
-							mysql_select_db("medical-teleconference", $con);
-							$id = $_SESSION['roomID'];
-							$query = "insert into `photos` (`ROOM_ID`, `PHOTO`) values ('$id', '$image')";
-							$result = mysql_query($query, $con);
-							if($result) {
-								echo "<br/> Image uploaded";
-							} else {
-								echo "<br/> Image not uploaded";
-							}
-						}
-					?>
-				</div>
-			</div>
+		<div class="col-md-6 col-lg-6">
+			<div class="row">
+				<canvas id="imageToTransform" width="800" height="600"></canvas>
+			</div>	
+		<div class="row">
+			<input type="button" id="plus" value="+" />
+			<input type="button" id="minus" value="-" />
+			<input type="button" id="rotate" value="rotate" />
+			<input type="button" id="mix" value="sharpen" />
+			<input type="button" id="red" value="Red" />
+			<input type="button" id="green" value="Green" />
+			<input type="button" id="blue" value="Blue" />
+			<p id="urlWhy">Picture url will appear here</p>
+		</div>
+		<div class="row">
+			<form id="uploadImage" method="post" action="conference.php" enctype="multipart/form-data">
+				<input type="file" name="image" id="imageFile" />
+				<input type="submit" name="submit" value="Upload" />
+			</form>
+			<script type="text/javascript" src="../scripts/imageTransformation.js"></script> <!--TODO: tutaj za to nie wiem jak zrobić żeby nie znikało po zapisie do bazy-->
+			<?php
+				if(isset($_POST['submit'])) {
+					if(getimagesize($_FILES['image']['tmp_name']) == FALSE) {
+						echo "Pleas select image";
+					} else {
+						$image = addslashes($_FILES['image']['tmp_name']);
+						$name = addslashes($_FILES['image']['name']);
+						$image = file_get_contents($image);
+						$image = base64_encode($image);
+						saveImageFile($image);
+					}
+				}
+				function saveImageFile($image) {
+					$con = mysql_connect("localhost", "root", "");
+					mysql_select_db("medical-teleconference", $con);
+					$id = $_SESSION['roomID'];
+					$query = "insert into `photos` (`ROOM_ID`, `PHOTO`) values ('$id', '$image')";
+					$result = mysql_query($query, $con);
+					if($result) {
+						echo "<br/> Image uploaded";
+					} else {
+						echo "<br/> Image not uploaded";
+					}
+				}
+			?>
 		</div>
 	</div>
 	<script src="../scripts/footer.js"></script>
