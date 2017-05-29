@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 14 Maj 2017, 16:27
+-- Czas generowania: 28 Maj 2017, 19:37
 -- Wersja serwera: 10.1.21-MariaDB
 -- Wersja PHP: 7.1.1
 
@@ -63,7 +63,12 @@ INSERT INTO `participants` (`ID`, `ROOM_ID`, `USER_ID`) VALUES
 (1, 1, 2),
 (2, 1, 3),
 (3, 2, 1),
-(4, 2, 3);
+(4, 2, 3),
+(17, 15, 3),
+(18, 15, 2),
+(19, 16, 3),
+(20, 17, 3),
+(21, 17, 2);
 
 -- --------------------------------------------------------
 
@@ -116,14 +121,17 @@ INSERT INTO `photo_comments` (`ID`, `PHOTO_ID`, `USER_ID`, `COMMENT`, `POINT`) V
 
 CREATE TABLE `rooms` (
   `ID` int(11) UNSIGNED NOT NULL,
-  `Name` varchar(30) COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+  `NAME` varchar(30) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci ROW_FORMAT=COMPACT;
 
 --
 -- Zrzut danych tabeli `rooms`
 --
 
-INSERT INTO `rooms` (`ID`, `Name`) VALUES
+INSERT INTO `rooms` (`ID`, `NAME`) VALUES
+(15, 'asdf'),
+(17, 'asdf12'),
+(16, 'asdf2'),
 (1, 'Pokój 1'),
 (2, 'Pokój 2');
 
@@ -135,17 +143,18 @@ INSERT INTO `rooms` (`ID`, `Name`) VALUES
 
 CREATE TABLE `users` (
   `ID` int(10) UNSIGNED NOT NULL,
-  `Name` varchar(30) COLLATE utf8_polish_ci NOT NULL
+  `NAME` varchar(30) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `users`
 --
 
-INSERT INTO `users` (`ID`, `Name`) VALUES
+INSERT INTO `users` (`ID`, `NAME`) VALUES
+(3, 'Dr Dolittle'),
 (1, 'Dr House'),
 (2, 'Dr Who'),
-(3, 'Dr Dolittle');
+(6, 's');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -186,13 +195,15 @@ ALTER TABLE `photo_comments`
 -- Indexes for table `rooms`
 --
 ALTER TABLE `rooms`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `Name` (`NAME`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `Name` (`NAME`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -207,7 +218,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT dla tabeli `participants`
 --
 ALTER TABLE `participants`
-  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT dla tabeli `photos`
 --
@@ -222,12 +233,12 @@ ALTER TABLE `photo_comments`
 -- AUTO_INCREMENT dla tabeli `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Ograniczenia dla zrzutów tabel
 --

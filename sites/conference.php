@@ -13,20 +13,25 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8" />
-  <link rel="stylesheet" type="text/css" href="../css/conference.css" title="Arkusz styl�w CSS">
+  <link rel="stylesheet" type="text/css" href="../css/conference.css" title="Arkusz stylów CSS">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../scripts/imageTransformation2.js"></script>
 </head>
 <body onmousedown="return false;">
-	<h1>Telekonferencja</h1>
-	<h1> Witaj <?=$_SESSION['name']?></h1>
-	<h1> W pokoju <?=$_SESSION['room']?></h1>
-	<div class="col-md-6 col-lg-6">
-		<div class="row">
-			<canvas id="imageToTransform" width="800" height="600"></canvas>
+	<div class="page-wrap">
+		<script src="../scripts/header.js"></script>
+		<div class="main">
+			<div class="welcome col-lg-5 col-md-7 col-sm-10">
+				<h1>Witaj <?=$_SESSION['name']?></h1>
+				<h1>W pokoju <?=$_SESSION['room']?></h1>
+			</div>
 		</div>
+		<div class="col-md-6 col-lg-6">
+			<div class="row">
+				<canvas id="imageToTransform" width="800" height="600"></canvas>
+			</div>	
 		<div class="row">
 			<input type="button" id="plus" value="+" />
 			<input type="button" id="minus" value="-" />
@@ -70,5 +75,6 @@
 			?>
 		</div>
 	</div>
+	<script src="../scripts/footer.js"></script>
 </body>
 </html>

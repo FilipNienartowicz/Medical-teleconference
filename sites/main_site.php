@@ -1,5 +1,30 @@
  <?php
 		session_start();
+		if($_POST){
+			
+			$db = new mysqli("localhost", "root", "", "medical-teleconference");
+			
+			$stmt = $db->prepare("select * from users where NAME = ?");
+			$stmt->bind_param("s", $_POST['name']);
+			
+			$stmt->execute();
+			$stmt->store_result();	
+			if($stmt->num_rows == 0)
+			{
+				$stmt->free_result();
+				$stmt->close();
+				$stmt = $db->prepare("insert into users (NAME) values (?)");
+				$stmt->bind_param("s", $name);
+				$name =  $_POST['name'];
+				$result = $stmt->execute();
+			}
+			$stmt->free_result();
+			$stmt->close();
+			$db->close();
+			
+			$_SESSION['name'] = $_POST['name'];
+			header("Location: rooms.php");
+		}
 ?>	 
 <!DOCTYPE html>
 <html>
@@ -10,41 +35,22 @@
 	
 </head>
 <body>
-     <h1>Telekonsultacje medyczne</h1>
-	 <p>Witaj w aplikacji, która pomoże Tobie skonsultować z innymi profesjonalistami zawiłości przypadków medycznych</p>
-	 <p>Zanim zaczniemy podaj swoje dane:</p>
-	 <form action="main_site.php" method="post">
-		<div>Twój nick: <input type="text" name="name" value="" class="form-control" required=""/></div>
-		<input type="submit" value="Rozpocznij "/>
-	</form>
-	
-	<?php
-	if($_POST){
-		
-		$db = new mysqli("localhost", "root", "", "medical-teleconference");
-		
-		$stmt = $db->prepare("select * from users where NAME = ?");
-		$stmt->bind_param("s", $_POST['name']);
-		
-		$stmt->execute();
-		$stmt->store_result();	
-		if($stmt->num_rows == 0)
-		{
-			$stmt->free_result();
-			$stmt->close();
-			$stmt = $db->prepare("insert into users (NAME) values (?)");
-			$stmt->bind_param("s", $name);
-			$name =  $_POST['name'];
-			$result = $stmt->execute();
-		}
-		$stmt->free_result();
-		$stmt->close();
-		$db->close();
-		
-		$_SESSION['name'] = $_POST['name'];
-		header("Location: rooms.php");
-	}
-	?>
+	<div class="page-wrap">
+		 <script src="../scripts/header.js"></script>
+		<div class="main"> 
+			<div class="field backcolor-lightgreen col-lg-4 col-md-6 col-sm-10">
+					 <form action="main_site.php" method="post">
+						<div class="cont">
+							<h2>Zanim zaczniemy podaj swoje dane:</h2>		
+							<h3>Twój nick: </h3>
+							<input type="text" name="name" value="" class="form-control" required=""/>
+							<button class="button button-color-goto">Rozpocznij</button>
+						</div>
+					</form>
+			</div>
+		</div>
+	</div>
+	<script src="../scripts/footer.js"></script>
 </body>
 </html>
 
