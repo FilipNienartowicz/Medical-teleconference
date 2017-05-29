@@ -7,11 +7,10 @@ var Marker = function () {
   this.YPos = 0;
 }
 
-function draw(mix, scale, translatePos, rotate, Markers, url){
+function draw(color, mix, scale, translatePos, rotate, Markers, url){
     var canvas = document.getElementById("imageToTransform");
     var context = canvas.getContext("2d");
     var img = new Image();
-    var url = canvas.toDataURL();
 
     img.onload = function() {
       context.clearRect(0, 0, canvas.width, canvas.height);
@@ -21,16 +20,47 @@ function draw(mix, scale, translatePos, rotate, Markers, url){
       context.scale(scale, scale);
       context.drawImage(img,0,0);
       sharpen(mix);
-      context.restore();
+      colors(color);
 
-      /*for (var i = 0; i < Markers.length; i++) {
+      for (var i = 0; i < Markers.length; i++) {
         var tempMarker = Markers[i];
-        context.drawImage(tempMarker.Sprite, tempMarker.XPos, tempMarker.YPos, tempMarker.Width, tempMarker.Height);
+        console.log(tempMarker);
+        //context.drawImage(tempMarker.Sprite, tempMarker.XPos, tempMarker.YPos, tempMarker.Width, tempMarker.Height);
       }
-      context.restore();*/
+      context.restore();
     }
     img.src = $("#urlWhy").text();
+    //color = 3;
 
+}
+
+function colors(color) {
+  var canvas = document.getElementById("imageToTransform");
+  var ctx = canvas.getContext("2d");
+  var w = canvas.width;
+  var h = canvas.height;
+  var dstData = ctx.getImageData(0, 0, w, h);
+  //console.log(color);
+
+  if(color == 0){
+    //console.log(color);
+    for (var i=0;i<dstData.data.length;i+=4) {
+      var tmp = dstData.data[i + color] + 10;
+      dstData.data[i + color] = tmp | dstData.data[i + color];
+    }
+  } else if (color == 1) {
+      var tmp = dstData.data[i + color] + 10;
+      for (var i=0;i<dstData.data.length;i+=4) {
+      dstData.data[i + color] = tmp | dstData.data[i + color];
+    }
+  } else if (color == 2) {
+      var tmp = dstData.data[i + color] + 10;
+    for (var i=0;i<dstData.data.length;i+=4) {
+      dstData.data[i + color] = tmp | dstData.data[i + color];
+    }
+  }
+
+  ctx.putImageData(dstData, 0, 0);
 }
 
 function sharpen(mix) {
@@ -48,11 +78,8 @@ function sharpen(mix) {
         y = h;
 
     while (y--) {
-
         x = w;
-
         while (x--) {
-
             var sy = y,
                 sx = x,
                 dstOff = (y * w + x) * 4,
@@ -63,12 +90,10 @@ function sharpen(mix) {
 
             for (var cy = 0; cy < katet; cy++) {
                 for (var cx = 0; cx < katet; cx++) {
-
                     var scy = sy + cy - half;
                     var scx = sx + cx - half;
 
                     if (scy >= 0 && scy < h && scx >= 0 && scx < w) {
-
                         var srcOff = (scy * w + scx) * 4;
                         var wt = weights[cy * katet + cx];
 
@@ -104,8 +129,8 @@ window.onload = function(){
     var scale = 1.0;
     var rotate = 0;
     var degree = 15;
-    var mix = 20;
-    var sharpen = 10;
+    var mix = 0;
+    var sharpen = 20;
     var scaleMultiplier = 0.8;
     var startDragOffset = {};
     var mouseDown = false;
@@ -113,22 +138,34 @@ window.onload = function(){
     // add button event listeners
     document.getElementById("plus").addEventListener("click", function(){
         scale /= scaleMultiplier;
-        draw(mix * 0.01, scale, translatePos, rotate, Markers, url);
+        draw(3, mix * 0.01, scale, translatePos, rotate, Markers, url);
     }, false);
 
     document.getElementById("minus").addEventListener("click", function(){
         scale *= scaleMultiplier;
-        draw(mix * 0.01, scale, translatePos, rotate, Markers, url);
+        draw(3, mix * 0.01, scale, translatePos, rotate, Markers, url);
     }, false);
 
     document.getElementById("rotate").addEventListener("click", function(){
         rotate += degree;
-        draw(mix * 0.01, scale, translatePos, rotate, Markers, url);
+        draw(3, mix * 0.01, scale, translatePos, rotate, Markers, url);
     }, false);
 
     document.getElementById("mix").addEventListener("click", function(){
       mix += sharpen;
-      draw(mix * 0.01, scale, translatePos, rotate, Markers, url);
+      draw(3, mix * 0.01, scale, translatePos, rotate, Markers, url);
+    }, false);
+
+    document.getElementById("red").addEventListener("click", function(){
+      draw(0, mix * 0.01, scale, translatePos, rotate, Markers, url);
+    }, false);
+
+    document.getElementById("green").addEventListener("click", function(){
+      draw(1, mix * 0.01, scale, translatePos, rotate, Markers, url);
+    }, false);
+
+    document.getElementById("blue").addEventListener("click", function(){
+      draw(2, mix * 0.01, scale, translatePos, rotate, Markers, url);
     }, false);
 
     document.getElementById('imageFile').addEventListener("click", function(){
@@ -149,21 +186,22 @@ window.onload = function(){
 
     // add event listeners to handle screen drag
     canvas.addEventListener("mousedown", function(evt){
-        //if(evt.which == 1) {
+        if(evt.which == 1) {
           mouseDown = true;
           startDragOffset.x = evt.clientX - translatePos.x;
           startDragOffset.y = evt.clientY - translatePos.y;
-        /*}
+        }
         else if (evt.which == 2) {
           var rect = canvas.getBoundingClientRect();
-          var mouseXPos = (evt.x - rect.left);
-          var mouseYPos = (evt.y - rect.top);
+          var mouseXPos = (evt.clientX - rect.left);
+          var mouseYPos = (evt.clientY - rect.top);
           var marker = new Marker();
           marker.XPos = mouseXPos - (marker.Width / 2);
           marker.YPos = mouseYPos - marker.Height;
           Markers.push(marker);
-          draw(scale, translatePos, rotate, Markers, url);
-        }*/
+          console.log(marker);
+          //draw(mix * 0.01, scale, translatePos, rotate, Markers, url);
+        }
     });
 
     canvas.addEventListener("mouseup", function(evt){
@@ -182,9 +220,9 @@ window.onload = function(){
         if (mouseDown) {
             translatePos.x = evt.clientX - startDragOffset.x;
             translatePos.y = evt.clientY - startDragOffset.y;
-            draw(mix * 0.01, scale, translatePos, rotate, Markers, url);
+            draw(3, mix * 0.01, scale, translatePos, rotate, Markers, url);
         }
     });
 
-    draw(mix * 0.01, scale, translatePos, rotate, Markers, url);
+    draw(3, mix * 0.01, scale, translatePos, rotate, Markers, url);
 };

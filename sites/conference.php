@@ -32,6 +32,9 @@
 			<input type="button" id="minus" value="-" />
 			<input type="button" id="rotate" value="rotate" />
 			<input type="button" id="mix" value="sharpen" />
+			<input type="button" id="red" value="Red" />
+			<input type="button" id="green" value="Green" />
+			<input type="button" id="blue" value="Blue" />
 			<p id="urlWhy">Picture url will appear here</p>
 		</div>
 		<div class="row">
