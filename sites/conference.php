@@ -28,10 +28,11 @@
 				<h1>W pokoju <?=$_SESSION['room']?></h1>
 			</div>
 		</div>
+		<div class="main">
 		<div class="col-md-6 col-lg-6">
 			<div class="row">
 				<canvas id="imageToTransform" width="800" height="600"></canvas>
-			</div>	
+			</div>
 		<div class="row">
 			<input type="button" id="plus" value="+" />
 			<input type="button" id="minus" value="-" />
@@ -75,6 +76,8 @@
 			?>
 		</div>
 	</div>
+</div>
+</div>
 	<script src="../scripts/footer.js"></script>
 </body>
 </html>
