@@ -1,0 +1,249 @@
+/* Mobile */
+@media only screen and (max-width: 767px) {
+  .col-sm-1 {
+    width: 8.333%; }
+
+  .col-sm-2 {
+    width: 16.666%; }
+
+  .col-sm-3 {
+    width: 25%; }
+
+  .col-sm-4 {
+    width: 33.333%; }
+
+  .col-sm-5 {
+    width: 41.666%; }
+
+  .col-sm-6 {
+    width: 50%; }
+
+  .col-sm-7 {
+    width: 58.333%; }
+
+  .col-sm-8 {
+    width: 66.666%; }
+
+  .col-sm-9 {
+    width: 75%; }
+
+  .col-sm-10 {
+    width: 83.333%; }
+
+  .col-sm-11 {
+    width: 91.666%; }
+
+  .col-sm-12 {
+    width: 100%; }
+ }
+	
+/* Tablet */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .col-md-1 {
+    width: 8.333%; }
+
+  .col-md-2 {
+    width: 16.666%; }
+
+  .col-md-3 {
+    width: 25%; }
+
+  .col-md-4 {
+    width: 33.333%; }
+
+  .col-md-5 {
+    width: 41.666%; }
+
+  .col-md-6 {
+    width: 46%; }
+
+  .col-md-7 {
+    width: 58.333%; }
+
+  .col-md-8 {
+    width: 66.666%; }
+
+  .col-md-9 {
+    width: 75%; }
+
+  .col-md-10 {
+    width: 83.333%; }
+
+  .col-md-11 {
+    width: 91.666%; }
+
+  .col-md-12 {
+    width: 100%; }
+}
+
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .col-lg-1 {
+    width: 8.333%; }
+
+  .col-lg-2 {
+    width: 16.666%; }
+
+  .col-lg-3 {
+    width: 24%; }
+
+  .col-lg-4 {
+    width: 30%; }
+
+  .col-lg-5 {
+    width: 41.666%; }
+
+  .col-lg-6 {
+    width: 50%; }
+
+  .col-lg-7 {
+    width: 58.333%; }
+
+  .col-lg-8 {
+    width: 66.666%; }
+
+  .col-lg-9 {
+    width: 75%; }
+
+  .col-lg-10 {
+    width: 83.333%; }
+
+  .col-lg-11 {
+    width: 91.666%; }
+
+  .col-lg-12 {
+    width: 100%; }
+}
+
+* {
+  margin: 0;
+  font-size: 16px; 
+  box-sizing: border-box;
+  }
+
+html, body {
+  height: 100%; }
+
+.border {
+  border-style: solid; }
+
+h1 {
+  font-size: 300%; 
+  text-align: center;
+}
+
+h2 {
+  font-size: 150%; 
+  text-align: center;
+}
+
+h3 {
+  font-size: 100%; 
+  text-align: center;
+}
+
+.backcolor-midgreen{
+	background: #32CD32;
+	border-color: green;
+}
+
+.backcolor-lightgreen{
+	background: #90EE90;
+}
+
+.backcolor-lightblue{
+	background: #4d79ff;
+}
+
+.button{
+    margin: 10px;
+    align-items: center;
+	border: none;
+	padding: 15px 15px;
+	cursor: pointer;
+	border-radius: 3px 50px;
+}
+
+.button-color-goto{
+	color: white;
+	background-color: #196719;
+}
+
+.button-color-add{
+	color: white;
+	background-color: #0033cc;
+}
+
+.button-color-cancel{
+	color: white;
+	background-color: #e60000;
+}
+
+.hf-backcol{
+	background: #404040;
+	color: white;
+}
+
+.header {
+    height: 160px; }
+  
+	.header .space{
+			height: 40px;
+	}
+	
+      .header .name {
+		text-align: center; 
+		line-height: 60px;
+		}
+    .header .navigation {
+        display: flex;
+		justify-content: flex-end;
+		padding: 10px;
+		list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+    }
+      .header .navigation a {
+        text-decoration: none;
+        display: block;
+        padding: 1em;
+        color: #cccccc; }
+
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -100px; 
+  }
+
+.page-wrap:after {
+  content: "";
+  display: block; }
+
+.site-footer, .page-wrap:after {
+  height: 100px;
+}
+
+.site-footer {
+  display: flex; }
+
+  .site-footer div {
+    margin: auto; }
+
+    .site-footer div p {
+      text-align: center; }
+
+    .site-footer div .name {
+      font-weight: bold; }
+.error {
+    color: red;
+	background: #ff6666;
+    border: dashed;
+    margin: 10px;
+    text-align: center;
+	border-radius: 6px;
+}
+.error .errcont{
+    margin: 10px;
+    color: black;
+}

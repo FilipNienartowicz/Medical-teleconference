@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Teleconference</title>
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/teleconference/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <div class="page-wrap">
+            <header class="header hf-backcol">
+                <div class="space"></div>
+                <h1 class="name">Telekonsultacje medyczne</h1>
+                <ul class="navigation">
+                    <li><a href="main_site.php">Wyloguj</a></li>
+                    <li><a href="rooms.php">Pokoje</a></li>
+                </ul>
+            </header>
+
+            <div id="body">
+                @RenderSection("featured", required: false)
+                <section class="content-wrapper main-content clear-fix">
+                    @RenderBody()
+                </section>
+            </div>
+         </div>
+        <footer class="site-footer hf-backcol">
+            <div>
+                <p>Projekt i przygotowanie strony:</p>
+                <p>Natalia Braniewska</p>
+                <p>Filip Nienartowicz</p>
+            </div>
+        </footer>
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+</body>
+</html>
