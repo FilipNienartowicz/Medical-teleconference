@@ -17,11 +17,5 @@ namespace Medical_teleconference.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Upload(string fileTitle)
-        {
-            return View();
-        }
-
     }
 }

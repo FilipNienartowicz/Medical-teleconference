@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script type="text/javascript" src="../../Scripts/imageTransformation2.js"></script>
+
 <div class="main">
     <div class="welcome col-lg-5 col-md-7 col-sm-10">
         <h1>Witaj @ViewBag.Name</h1>
@@ -43,13 +43,10 @@
         </div>
         <div class="row">
             <br />
-            @using (Html.BeginForm("Upload", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-            <!--<form id="uploadImage" method="post" enctype="multipart/form-data">-->
+            <form id="uploadImage" method="post" enctype="multipart/form-data">
                 <input type="file" name="image" id="imageFile" />
                 <input type="submit" name="submit" value="Upload" />
-            <!--</form>-->
-            }
+            </form>
             <script type="text/javascript" src="../../Scripts/imageTransformation.js"></script> <!--TODO: tutaj za to nie wiem jak zrobić żeby nie znikało po zapisie do bazy-->
         </div>
     </div>

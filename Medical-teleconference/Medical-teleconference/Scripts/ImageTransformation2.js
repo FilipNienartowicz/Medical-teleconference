@@ -157,8 +157,8 @@ window.onload = function () {
 		draw(3, mix * 0.01, scale, translatePos, rotate, Markers, url, colorsRGB);
 	}, false);
 
-	document.getElementById("sharp").addEventListener("change", function () {
-		mix = += sharpen;
+	document.getElementById("sharp").addEventListener("click", function () {
+		mix += sharpen;
 		draw(3, mix * 0.01, scale, translatePos, rotate, Markers, url, colorsRGB);
 	}, false);
 
