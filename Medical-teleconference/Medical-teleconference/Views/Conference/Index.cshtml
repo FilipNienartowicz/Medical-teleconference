@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="../../Scripts/imageTransformation2.js"></script>
+<div class="main">
+    <div class="welcome col-lg-5 col-md-7 col-sm-10">
+        <h1>Witaj @ViewBag.Name</h1>
+        <h1>W pokoju @ViewBag.RoomName</h1>
+    </div>
+</div>
+<div class="main">
+    <div class="col-md-6 col-lg-6">
+        <div class="row">
+            <canvas id="imageToTransform" width="800" height="600"></canvas>
+        </div>
+        <div class="row">
+            <label>Resize:</label>
+            <input type="button" id="plus" value="+" />
+            <input type="button" id="minus" value="-" />
+            <br />
+            <label>Rotate:</label>
+            <input type="button" id="rotateRight" value="right" />
+            <input type="button" id="rotateLeft" value="left" />
+            <br />
+            <label>Sharpen:</label>
+            <input type="button" id="sharp" value="+" />
+            <input type="button" id="unsharp" value="-" />
+            <br />
+            <label>Red:</label>
+            <input type="button" id="redPlus" value="+" />
+            <input type="button" id="redMinus" value="-" />
+            <br />
+            <label>Green:</label>
+            <input type="button" id="greenPlus" value="+" />
+            <input type="button" id="greenMinus" value="-" />
+            <br />
+            <label>Blue:</label>
+            <input type="button" id="bluePlus" value="+" />
+            <input type="button" id="blueMinus" value="-" />
+            <p hidden id="urlWhy">Picture url will appear here</p>
+        </div>
+        <div class="row">
+            <br />
+            @using (Html.BeginForm("Upload", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <!--<form id="uploadImage" method="post" enctype="multipart/form-data">-->
+                <input type="file" name="image" id="imageFile" />
+                <input type="submit" name="submit" value="Upload" />
+            <!--</form>-->
+            }
+            <script type="text/javascript" src="../../Scripts/imageTransformation.js"></script> <!--TODO: tutaj za to nie wiem jak zrobić żeby nie znikało po zapisie do bazy-->
+        </div>
+    </div>
+</div>
