@@ -129,7 +129,7 @@ html, body {
   border-style: solid; }
 
 h1 {
-  font-size: 300%; 
+  font-size: 200%; 
   text-align: center;
 }
 
@@ -141,6 +141,10 @@ h2 {
 h3 {
   font-size: 100%; 
   text-align: center;
+}
+
+.title{
+    margin: 40px;
 }
 
 .backcolor-midgreen{
@@ -180,34 +184,39 @@ h3 {
 	background-color: #e60000;
 }
 
+/*kolor headera i footera*/
 .hf-backcol{
 	background: #404040;
 	color: white;
 }
 
 .header {
-    height: 160px; }
-  
-	.header .space{
-			height: 40px;
-	}
-	
-      .header .name {
+    display: flex;
+    justify-content: center;
+}
+	  .header .name {
 		text-align: center; 
 		line-height: 60px;
 		}
-    .header .navigation {
+    
+      .navigation {
         display: flex;
 		justify-content: flex-end;
+        align-items: baseline;
 		padding: 10px;
 		list-style: none;
         display: flex;
         flex-wrap: wrap;
     }
-      .header .navigation a {
+      .navigation a {
         text-decoration: none;
         display: block;
         padding: 1em;
+        color: #cccccc; }
+      .navigation text {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
         color: #cccccc; }
 
 .page-wrap {
@@ -236,14 +245,8 @@ h3 {
     .site-footer div .name {
       font-weight: bold; }
 .error {
-    color: red;
-	background: #ff6666;
-    border: dashed;
     margin: 10px;
     text-align: center;
 	border-radius: 6px;
-}
-.error .errcont{
-    margin: 10px;
-    color: black;
+    color: red;
 }

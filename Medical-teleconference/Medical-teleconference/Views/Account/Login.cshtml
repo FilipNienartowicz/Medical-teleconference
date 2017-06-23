@@ -1,0 +1,34 @@
+﻿@model Medical_teleconference.Models.User
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@section Styles {
+    <link href="@Url.Content("~/Content/teleconference/main_site.css")" rel="stylesheet" type="text/css" />
+}
+
+@section featured {
+    <h1 class ="title">@ViewBag.Message</h1>
+}
+
+<section id="loginForm">
+    <div class="main">
+        <div class="field backcolor-lightgreen col-lg-4 col-md-6 col-sm-10">
+            @using (Html.BeginForm())
+            {
+                <div class="cont">
+                    <h2>Zanim zaczniemy podaj swoje dane:</h2>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "error" })
+                        
+                    
+                    <input class="button button-color-goto" type="submit" value="Rozpocznij" />
+                </div>
+            }
+        </div>
+    </div>
+</section>

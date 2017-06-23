@@ -9,8 +9,7 @@ using System.Web;
 
 namespace Medical_teleconference.Models
 {
-    [Table("PhotoComments")]
-    public class PhotoComment : DbContext
+    public class PhotoComment
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -19,6 +18,5 @@ namespace Medical_teleconference.Models
         public int UserId { get; set; }
         public string Comment { get; set; }
         public Point PCPoint { get; set; }
-
     }
 }

@@ -4,18 +4,17 @@
         <meta charset="utf-8" />
         <title>@ViewBag.Title - Teleconference</title>
         <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/teleconference/css")
-        @Scripts.Render("~/bundles/modernizr")
+        @Styles.Render("~/Content/teleconference/style.css")
+        @RenderSection("Styles", false)
     </head>
     <body>
         <div class="page-wrap">
             <header class="header hf-backcol">
-                <div class="space"></div>
-                <h1 class="name">Telekonsultacje medyczne</h1>
-                <ul class="navigation">
-                    <li><a href="main_site.php">Wyloguj</a></li>
-                    <li><a href="rooms.php">Pokoje</a></li>
-                </ul>
+                <div class="col-lg-3"></div>
+                <h1 class="name col-lg-6">Telekonsultacje medyczne</h1>
+                <section id="navigation" class="col-lg-3">
+                    @Html.Partial("_NavigationPartial")
+                </section>
             </header>
 
             <div id="body">

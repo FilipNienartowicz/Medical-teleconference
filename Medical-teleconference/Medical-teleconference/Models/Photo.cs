@@ -9,13 +9,15 @@ using System.Web;
 
 namespace Medical_teleconference.Models
 {
-    [Table("Photos")]
-    public class Photo : DbContext
+    public class Photo
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int PhotoId { get; set; }
         public int RoomId { get; set; }
-        public Graphics photo { get; set; }
+        public byte[] photo { get; set; }
+
+        public ICollection<PhotoComment> Comments { get; set; }
+ 
     }
 }

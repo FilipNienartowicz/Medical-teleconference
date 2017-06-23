@@ -8,13 +8,21 @@ using System.Web;
 
 namespace Medical_teleconference.Models
 {
-    [Table("Rooms")]
-    public class Room : DbContext
+    public class Room
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int RoomId { get; set; }
-        [StringLength(50, ErrorMessage = "Maximal length of the roomname is 50 characters!")]
+        
+        [Required(ErrorMessage = "Nazwa pokoju jest wymagana!")]
+        [Display(Name = "Nazwa pokoju")]
+        [StringLength(50, ErrorMessage = "Nazwa pokoju może się składać maksymalnie z 30 znaków!")]
         public string RoomName { get; set; }
+        
+        public ICollection<User> Participants { get; set; }
+        
+        public ICollection<Photo> Photos { get; set; }
+        
+        public ICollection<Comment> Comments { get; set; }
     }
 }

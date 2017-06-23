@@ -10,10 +10,10 @@ namespace Medical_teleconference.Models
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Participant> Participants { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<PhotoComment> PhotoComments { get; set; }
+        
         public TeleconferenceDbContext() : base("DefaultConnection") { }
     }
 }

@@ -1,0 +1,21 @@
+﻿<ul class="navigation">
+        @if (Request.IsAuthenticated)
+        {
+        <li>Witaj, @User.Identity.Name!</li>
+        <li>@Html.ActionLink("Pokoje", "Index", "Room")</li>
+        <li>@Html.ActionLink("Załóż nowy", "Create", "Room")</li>
+        <li>
+            <text>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a>
+                }
+            </text>
+        </li>
+    }
+    else
+    {
+            <li>@Html.ActionLink("Zaloguj się", "Index", "Account")</li>
+    }
+</ul>
