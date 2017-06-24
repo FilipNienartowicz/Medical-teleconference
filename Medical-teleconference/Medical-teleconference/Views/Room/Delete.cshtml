@@ -4,23 +4,23 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Room</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.RoomName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.RoomName)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+@section Styles {
+    <link href="@Url.Content("~/Content/teleconference/rooms.css")" rel="stylesheet" type="text/css" />
 }
+
+<div class="main col-lg-12 col-md-12 col-sm-12">
+    <div class="field backcolor-lightgreen col-lg-4 col-md-6 col-sm-8">
+        <div class="cont">
+            <h2>Czy na pewno chcesz usunąć pokój?</h2>
+            <h3>@Html.DisplayFor(model => model.RoomName)</h3>
+            <div class="line">
+                <button class="button button-color-goto" onclick="location.href='@Url.Action("Index", "Room")';return false;">Anuluj</button>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <input class="button button-color-cancel" type="submit" value="Usuń" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

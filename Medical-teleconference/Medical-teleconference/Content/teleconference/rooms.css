@@ -35,3 +35,10 @@
 		border-radius: 12px;
 	}
 
+  .line {
+		display: flex;
+		flex-direction: row; 
+		justify-content: space-around;
+		align-items: center;
+		border-radius: 12px;
+	}

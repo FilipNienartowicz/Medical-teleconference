@@ -22,19 +22,6 @@ namespace Medical_teleconference.Controllers
         }
 
         //
-        // GET: /Room/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            Room room = db.Rooms.Find(id);
-            if (room == null)
-            {
-                return HttpNotFound();
-            }
-            return View(room);
-        }
-
-        //
         // GET: /Room/Create
 
         public ActionResult Create()

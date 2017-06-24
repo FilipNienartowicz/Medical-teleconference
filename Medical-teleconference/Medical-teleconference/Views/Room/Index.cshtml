@@ -4,30 +4,32 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RoomName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoomName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RoomId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RoomId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RoomId })
-        </td>
-    </tr>
+@section Styles {
+    <link href="@Url.Content("~/Content/teleconference/rooms.css")" rel="stylesheet" type="text/css" />
 }
 
-</table>
+<div class="main col-lg-12 col-md-12 col-sm-12">
+    <div class="field backcolor-lightgreen col-lg-4 col-md-6 col-sm-8">
+        <h2>Pokoje, do których masz dostęp:</h2>
+            @foreach (var item in Model)
+            {
+                <div class="cont border backcolor-midgreen">
+                    <h2>@Html.DisplayFor(modelItem => item.RoomName)</h2>
+                    <div class="line">
+                        <button class="button button-color-goto" onclick="location.href='@Url.Action("Edit", "Room", new { id = item.RoomId })';return false;">Edytuj</button>
+                        <button class="button button-color-goto" onclick="location.href='@Url.Action("Index", "Conference")';return false;">Przejdź do pokoju</button>
+                        <button class="button button-color-goto" onclick="location.href='@Url.Action("Delete", "Room", new { id = item.RoomId })';return false;">Usuń</button>
+                    </div>
+                </div>
+            }
+        <div class="cont">
+            @using (Html.BeginForm("Create", "Room", FormMethod.Get))
+            {
+                <input class="button button-color-add" type="submit" value="Załóż nowy pokój!" />
+            }
+        </div>
+    </div>
+           
+</div>
+
+        

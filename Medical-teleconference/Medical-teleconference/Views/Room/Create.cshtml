@@ -4,31 +4,33 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Room</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RoomName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.RoomName)
-            @Html.ValidationMessageFor(model => model.RoomName)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+@section Styles {
+    <link href="@Url.Content("~/Content/teleconference/rooms.css")" rel="stylesheet" type="text/css" />
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="main col-lg-12 col-md-12 col-sm-12">
+    <div class="field backcolor-lightgreen col-lg-4 col-md-6 col-sm-8">
+        @using (Html.BeginForm())
+        {
+            <div class="cont">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <h2>Edytuj pokój</h2>
+
+                @Html.LabelFor(model => model.RoomName)
+                @Html.EditorFor(model => model.RoomName)
+                @Html.ValidationMessageFor(model => model.RoomName)
+
+                <div class="line">
+                    <input class="button button-color-goto" type="submit" value="Create" />
+                    <button class="button button-color-cancel" onclick="location.href='@Url.Action("Index", "Room")';return false;">Anuluj</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="field backcolor-lightblue col-lg-4 col-md-6 col-sm-8">
+        <h1>Uczestnicy</h1>
+    </div>
 </div>
 
 @section Scripts {
