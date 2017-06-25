@@ -1,0 +1,8 @@
+﻿@using (Ajax.BeginForm("Upload", "Conference",
+                            new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "listDiv" },
+                            new { enctype = "multipart/form-data"}))
+{
+    <input type="file" name="image" id="imageFile" />
+    <input type="hidden" name="RoomId" value="@ViewBag.RoomId" />
+    <input type="submit" name="submit" id="upload" value="Upload" />
+}

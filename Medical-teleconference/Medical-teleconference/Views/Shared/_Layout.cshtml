@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/teleconference/style.css")
         @RenderSection("Styles", false)
+        @RenderSection("Scripts2", false)
     </head>
     <body>
         <div class="page-wrap">
@@ -31,7 +32,7 @@
                 <p>Filip Nienartowicz</p>
             </div>
         </footer>
-        @Scripts.Render("~/bundles/jquery")
+        @*@Scripts.Render("~/bundles/jquery")*@
         @RenderSection("scripts", required: false)
 </body>
 </html>
