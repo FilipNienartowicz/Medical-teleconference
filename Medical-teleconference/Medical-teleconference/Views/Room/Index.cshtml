@@ -17,7 +17,7 @@
                     <h2>@Html.DisplayFor(modelItem => item.RoomName)</h2>
                     <div class="line">
                         <button class="button button-color-goto" onclick="location.href='@Url.Action("Edit", "Room", new { id = item.RoomId })';return false;">Edytuj</button>
-                        <button class="button button-color-goto" onclick="location.href='@Url.Action("Index", "Conference")';return false;">Przejdź do pokoju</button>
+                        <button class="button button-color-goto" onclick="location.href='@Url.Action("Index", "Conference", new { id = item.RoomId})';return false;">Przejdź do pokoju</button>
                         <button class="button button-color-goto" onclick="location.href='@Url.Action("Delete", "Room", new { id = item.RoomId })';return false;">Usuń</button>
                     </div>
                 </div>
