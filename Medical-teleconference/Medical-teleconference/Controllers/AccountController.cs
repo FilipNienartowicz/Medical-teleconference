@@ -17,14 +17,20 @@ namespace Medical_teleconference.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return RedirectToAction("Login");
+            if(!Models.User.IsLoggedIn())
+                return RedirectToAction("Login");
+
+            return RedirectToAction("Index", "Room");
         }
 
         [AllowAnonymous]
         public ActionResult Login()
         {
             ViewBag.Message = "Witaj na stronie telekonsultacji medycznych";
-            return View();
+            if (!Models.User.IsLoggedIn())
+                return View();
+
+            return RedirectToAction("Index", "Room");
         }
 
         [HttpPost]
@@ -34,9 +40,6 @@ namespace Medical_teleconference.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                //using (TeleconferenceDbContext db = new TeleconferenceDbContext())
-                //{
                     try
                     {
                         if (!WebSecurity.UserExists(user.UserName))
@@ -50,21 +53,6 @@ namespace Medical_teleconference.Controllers
                     {
                         ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                     }
-
-                    /*List<User> a = db.Users.ToList();
-                    if (!db.Users.Any(u => u.UserName.Equals(user.UserName)))
-                    {
-                        db.Users.Add(user);
-                        db.SaveChanges();
-                    }
-                }
-                if(!WebSecurity.UserExists(user.UserName))
-                {
-                    WebSecurity.CreateAccount(user.UserName, "a@qwwQssg$", false);
-                }
-
-                if(WebSecurity.Login(user.UserName, "a@qwwQssg$", true))
-                    return Redirect("~/room");*/
             }
 
             return RedirectToAction("Index");

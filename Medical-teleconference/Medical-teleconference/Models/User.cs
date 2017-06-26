@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using WebMatrix.WebData;
 
 namespace Medical_teleconference.Models
 {
@@ -21,5 +22,21 @@ namespace Medical_teleconference.Models
         public string UserName { get; set; }
         
         public ICollection<Room> Rooms { get; set; }
+
+        public User()
+        {
+            Rooms = new HashSet<Room>();
+        }
+
+         public static bool IsLoggedIn()
+        {
+             if((System.Web.HttpContext.Current.User != null) && (System.Web.HttpContext.Current.User.Identity.IsAuthenticated))
+             {
+                 if (WebSecurity.CurrentUserId >= 0)
+                     return true;
+                 WebSecurity.Logout();
+             }
+             return false;
+        }
     }
 }

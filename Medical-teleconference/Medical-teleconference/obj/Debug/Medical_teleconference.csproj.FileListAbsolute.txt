@@ -157,4 +157,3 @@ C:\Users\FilipN\Desktop\IwM\Medical-teleconference\Medical-teleconference\Medica
 C:\Users\FilipN\Desktop\IwM\Medical-teleconference\Medical-teleconference\Medical-teleconference\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\FilipN\Desktop\IwM\Medical-teleconference\Medical-teleconference\Medical-teleconference\obj\Debug\Medical_teleconference.dll
 C:\Users\FilipN\Desktop\IwM\Medical-teleconference\Medical-teleconference\Medical-teleconference\obj\Debug\Medical_teleconference.pdb
-C:\Users\FilipN\Desktop\IwM\Medical-teleconference\Medical-teleconference\Medical-teleconference\obj\Debug\Medical_teleconference.csprojResolveAssemblyReference.cache

@@ -19,5 +19,9 @@ namespace Medical_teleconference.Models
 
         public ICollection<PhotoComment> Comments { get; set; }
  
+        public Photo()
+        {
+            Comments = new HashSet<PhotoComment>();
+        }
     }
 }

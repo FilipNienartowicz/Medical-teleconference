@@ -6,19 +6,35 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Medical_teleconference.Models;
+using WebMatrix.WebData;
+using Medical_teleconference.Filters;
 
 namespace Medical_teleconference.Controllers
 {
     public class RoomController : Controller
     {
-        private TeleconferenceDbContext db = new TeleconferenceDbContext();
+        private TeleconferenceDbContext db;
+
+        public RoomController()
+        {
+            db = new TeleconferenceDbContext();
+        }
 
         //
         // GET: /Room/
-
+        [InitializeSimpleMembership]
         public ActionResult Index()
         {
-            return View(db.Rooms.ToList());
+            if (Models.User.IsLoggedIn())
+            {
+                Models.User user = db.Users.Find(WebSecurity.CurrentUserId);
+                db.Entry(user).Collection(x => x.Rooms).Load();
+                return View(db.Users.Find(WebSecurity.CurrentUserId).Rooms.ToList());
+
+               // return View(db.Rooms.ToList());
+            }
+
+            return RedirectToAction("Index", "Account");
         }
 
         //
@@ -26,7 +42,14 @@ namespace Medical_teleconference.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            if (Models.User.IsLoggedIn())
+            {
+                Room room = new Room();
+                room.Participants.Add(db.Users.Find(WebSecurity.CurrentUserId));
+                return View(room);
+            }
+
+            return RedirectToAction("Index", "Account");
         }
 
         //
@@ -38,11 +61,11 @@ namespace Medical_teleconference.Controllers
         {
             if (ModelState.IsValid)
             {
+                room.Participants.Add(db.Users.Find(WebSecurity.CurrentUserId));
                 db.Rooms.Add(room);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(room);
         }
 
@@ -51,12 +74,22 @@ namespace Medical_teleconference.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Room room = db.Rooms.Find(id);
-            if (room == null)
+            if (Models.User.IsLoggedIn())
             {
-                return HttpNotFound();
+                db.Entry(db.Users.Find(WebSecurity.CurrentUserId)).Collection(x => x.Rooms).Load();
+                db.Entry(db.Rooms.Find(id)).Collection(x => x.Participants).Load();
+                Room room = db.Rooms.Find(id);
+
+                ViewBag.Users = db.Users.ToList();
+               
+                if (room == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(room);
             }
-            return View(room);
+
+            return RedirectToAction("Index", "Account");
         }
 
         //
@@ -75,17 +108,60 @@ namespace Medical_teleconference.Controllers
             return View(room);
         }
 
+        [HttpPost]
+        public ActionResult AddParticipant(int RoomId, int participant = -1)
+        {
+            db.Entry(db.Rooms.Find(RoomId)).Collection(x => x.Participants).Load();
+            if(participant >= 0)
+            {
+                Models.User user = db.Users.Find(participant);
+                Room room = db.Rooms.Find(RoomId);
+
+                if (!room.Participants.Any(p => p.UserId == participant))
+                {
+                    room.Participants.Add(user);
+                    db.Entry(room).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        //[HttpPost]
+        public ActionResult DeleteParticipant(int RoomId, int participant)
+        {
+            db.Entry(db.Rooms.Find(RoomId)).Collection(x => x.Participants).Load();
+            if (participant >= 0)
+            {
+                Models.User user = db.Users.Find(participant);
+                Room room = db.Rooms.Find(RoomId);
+
+                if (room.Participants.Any(p => p.UserId == participant))
+                {
+                    room.Participants.Remove(user);
+                    db.Entry(room).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         //
         // GET: /Room/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Room room = db.Rooms.Find(id);
-            if (room == null)
+            if (Models.User.IsLoggedIn())
             {
-                return HttpNotFound();
+                Room room = db.Rooms.Find(id);
+                if (room == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(room);
             }
-            return View(room);
+
+            return RedirectToAction("Index", "Account");
         }
 
         //

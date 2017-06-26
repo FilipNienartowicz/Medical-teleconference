@@ -26,8 +26,10 @@
   padding: 20px;
   }
   
-  .field .cont {
-		margin: 10px;
+.cont {
+		width: 90%;
+        margin: 10px;
+        padding: 10px;
 		display: flex;
 		flex-direction: column; 
 		justify-content: space-around;

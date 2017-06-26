@@ -15,5 +15,10 @@ namespace Medical_teleconference.Models
         public DbSet<PhotoComment> PhotoComments { get; set; }
         
         public TeleconferenceDbContext() : base("DefaultConnection") { }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
