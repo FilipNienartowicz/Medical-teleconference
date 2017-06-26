@@ -15,22 +15,22 @@
             <div class="cont">
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
-                <h2>Edytuj pokój</h2>
-
+                <h2>Utwórz pokój</h2>
                 @Html.LabelFor(model => model.RoomName)
                 @Html.EditorFor(model => model.RoomName)
                 @Html.ValidationMessageFor(model => model.RoomName)
 
+               
+
+
                 <div class="line">
-                    <input class="button button-color-goto" type="submit" value="Create" />
+                    <input class="button button-color-goto" type="submit" value="Utwórz"/>
                     <button class="button button-color-cancel" onclick="location.href='@Url.Action("Index", "Room")';return false;">Anuluj</button>
                 </div>
             </div>
         }
     </div>
-    <div class="field backcolor-lightblue col-lg-4 col-md-6 col-sm-8">
-        <h1>Uczestnicy</h1>
-    </div>
+    
 </div>
 
 @section Scripts {

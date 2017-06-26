@@ -23,17 +23,41 @@
                 @Html.EditorFor(model => model.RoomName)
                 @Html.ValidationMessageFor(model => model.RoomName)
 
+                <h2>Uczestnicy</h2>
+                @foreach (var item in Model.Participants)
+                {
+                    <div class="cont border backcolor-midgreen">
+                        <div class="line">
+                            <h2>@Html.DisplayFor(modelItem => item.UserName)</h2>
+                            @if (item.UserId != WebSecurity.CurrentUserId)
+                            {
+                                <button class="button button-color-cancel" onclick="location.href='@Url.Action("DeleteParticipant", "Room", new { RoomId = Model.RoomId, participant = item.UserId })';return false;">Usuń</button>
+                            }
+                        </div>
+                    </div>
+                }
+
                 <div class="line">
                     <input class="button button-color-goto" type="submit" value="Zapisz" />
                     <button class="button button-color-cancel" onclick="location.href='@Url.Action("Index", "Room")';return false;">Anuluj</button>
                 </div>
             </div>
-
-            
         }
-    </div>
-    <div class="field backcolor-lightblue col-lg-4 col-md-6 col-sm-8">
-        <h1>Uczestnicy</h1>
+
+        @using (Html.BeginForm("AddParticipant", "Room", FormMethod.Post))
+        {
+                <div class="cont border backcolor-midgreen">
+                    <h3>Nazwa użytkownika</h3>
+                    @Html.HiddenFor(model => model.RoomId)
+                    @Html.DropDownList(
+                    "participant",
+                          ((IEnumerable<Medical_teleconference.Models.User>)ViewBag.Users)
+                     .Select(x => new SelectListItem() { Text = x.UserName, Value = x.UserId.ToString() }),
+                     "Wybierz uczestnika"
+                    )
+                    <button class="button button-color-goto">Dodaj uczestnika</button>
+                </div> 
+        }
     </div>
 </div>
 

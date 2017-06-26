@@ -152,6 +152,11 @@ h3 {
 	border-color: green;
 }
 
+.backcolor-midblue{
+	background: #0039e6;
+	border-color: blue;
+}
+
 .backcolor-lightgreen{
 	background: #90EE90;
 }
