@@ -1,23 +1,33 @@
 ﻿@model IEnumerable<Medical_teleconference.Models.Photo>
 
 <div class="col-lg-3" id="listDiv">
-    <p>List of Photos:</p>
+    <p>Lista zdjęć:</p>
     @if (Model != null)
     {
         <ul id="imageList">
             @foreach (var item in Model)
             {
-            <li>
-                <a>
+            <li class="line">
+                <a >
                     @Ajax.ActionLink(item.PhotoId.ToString(), "Show", new { id = item.PhotoId }, new AjaxOptions()
-           {
-               HttpMethod = "Get",
-               UpdateTargetId = "imageToTransform",
+                       {
+                           HttpMethod = "Get",
+                           UpdateTargetId = "imageToTransform",
 
-           }, new { data = item.PhotoId })
+                       }, new { data = item.PhotoId })
+                    @{
+                    var base64 = Convert.ToBase64String(item.photo);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+
+                    <img src="@imgSrc" width="100" />
                 </a>
             </li>
+
+
             }
+            
+             
         </ul>
     }
     else

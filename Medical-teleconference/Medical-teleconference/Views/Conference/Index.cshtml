@@ -21,24 +21,24 @@
 }
 
 <div class="main">
-    <div class="welcome col-lg-5 col-md-7 col-sm-10">
-        <h1>Witaj w pokoju</h1>
-        <h1 id="roomName">@ViewBag.RoomName</h1>
+    <div class="welcome col-lg-3 col-md-4 col-sm-5">
+        <h2>Witaj w pokoju</h2>
+        <h3 id="roomName">@ViewBag.RoomName</h3>
+        @Html.Partial("_ImageListPartial", Model)
     </div>
-</div>
-@Html.Partial("_ImageListPartial", Model)
-<div class="main">
-    <div class="col-md-6 col-lg-6">
+
+    <div class="field col-md-5 col-lg-7">
         @Html.Partial("_ImagePartial")
-        @Html.Partial("_ConferenceTransformationsPartial")
-        <div class="row">
-            <br />
+        <div class="line">
+            @Html.Partial("_ConferenceTransformationsPartial")
             @Html.Partial("_ImageFormPartial")
-            
         </div>
     </div>
+    <div class="field backcolor-lightblue col-md-4, col-lg-2">
+        @Html.Partial("_ChatPartial")
+    </div>
 </div>
-@Html.Partial("_ChatPartial")
+
 
 @section Scripts {
     @Scripts.Render("~/Scripts/ImageTransformation.js")

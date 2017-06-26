@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMatrix.WebData;
 
 namespace Medical_teleconference.Controllers
 {
@@ -17,30 +18,40 @@ namespace Medical_teleconference.Controllers
 
         public ActionResult Index(int id)
         {
-            Room room = db.Rooms.Find(id);
-            ViewBag.RoomName = room.RoomName;
-            ViewBag.RoomId = id;
-            
-            List<Photo> photosInRoom = new List<Photo>();
-
-            foreach (Photo p in db.Photos)
+            db.Entry(db.Rooms.Find(id)).Collection(x => x.Participants).Load();
+            if (Models.Room.IsParticipant(db.Rooms.Find(id)))
             {
-                if(p.RoomId == id)
-                {
-                    photosInRoom.Add(p);
-                }
-            }
+                Room room = db.Rooms.Find(id);
+                ViewBag.RoomName = room.RoomName;
+                ViewBag.RoomId = id;
 
-            return View(photosInRoom);
+                List<Photo> photosInRoom = new List<Photo>();
+
+                foreach (Photo p in db.Photos)
+                {
+                    if (p.RoomId == id)
+                    {
+                        photosInRoom.Add(p);
+                    }
+                }
+
+                return View(photosInRoom);
+            }
+            return RedirectToAction("Index", "Account");
         }
 
         public ActionResult Show(int? id)
         {
-            Photo p = db.Photos.Find(id);
-            string b64 = Convert.ToBase64String(p.photo);
-            string content = "data:" + p.MimeType + ";base64," + b64;
+           
+            if (Models.User.IsLoggedIn())
+            {
+                Photo p = db.Photos.Find(id);
+                string b64 = Convert.ToBase64String(p.photo);
+                string content = "data:" + p.MimeType + ";base64," + b64;
 
-            return Content(content);
+                return Content(content);
+            }
+            return RedirectToAction("Index", "Account");
         }
 
         //[HttpPost]
