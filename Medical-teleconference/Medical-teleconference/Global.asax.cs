@@ -26,7 +26,7 @@ namespace Medical_teleconference
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-            //Database.SetInitializer<TeleconferenceDbContext>(new DropCreateDatabaseAlways<TeleconferenceDbContext>());
+            Database.SetInitializer<TeleconferenceDbContext>(new DropCreateDatabaseAlways<TeleconferenceDbContext>());
         }
     }
 }
