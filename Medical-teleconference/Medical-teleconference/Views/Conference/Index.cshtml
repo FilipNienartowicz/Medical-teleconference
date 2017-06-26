@@ -9,6 +9,7 @@
     <link href="@Url.Content("~/Content/teleconference/conference.css")" rel="stylesheet" type="text/css" />
 }
 @section Scripts2 {
+    @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js")
     @Scripts.Render("~/Scripts/jquery-1.9.1.min.js")
     @Scripts.Render("~/Scripts/jquery-ui-1.9.2.min.js")
     @Scripts.Render("~/Scripts/jquery.ui.widget.min.js")
@@ -16,11 +17,13 @@
     @Scripts.Render("~/Scripts/jquery.fileupload.js")
     @Scripts.Render("~/Scripts/jquery.fileupload-ui.js")
     @Scripts.Render("~/Scripts/ImageTransformation2.js")
+    @Scripts.Render("~/Scripts/Chat.js")
 }
 
 <div class="main">
     <div class="welcome col-lg-5 col-md-7 col-sm-10">
-        <h1>Witaj w pokoju @ViewBag.RoomName</h1>
+        <h1>Witaj w pokoju</h1>
+        <h1 id="roomName">@ViewBag.RoomName</h1>
     </div>
 </div>
 @Html.Partial("_ImageListPartial", Model)

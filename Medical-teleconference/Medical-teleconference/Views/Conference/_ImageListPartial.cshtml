@@ -7,9 +7,6 @@
         <ul id="imageList">
             @foreach (var item in Model)
             {
-            @*<input type="button" id="imgToTr" onclick="showImage(@item.photo);" value="@Html.DisplayFor(medelItem => item.PhotoId)" />
-                <input type="hidden" id="imgDataToTr" value="@Html.DisplayFor(modelItem => item.photo)" />
-            *@
             <li>
                 <a>
                     @Ajax.ActionLink(item.PhotoId.ToString(), "Show", new { id = item.PhotoId }, new AjaxOptions()
