@@ -16,6 +16,7 @@ namespace Medical_teleconference.Models
         public int PhotoId { get; set; }
         public int RoomId { get; set; }
         public byte[] photo { get; set; }
+        public string MimeType { get; set; }
 
         public ICollection<PhotoComment> Comments { get; set; }
  

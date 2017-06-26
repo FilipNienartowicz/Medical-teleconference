@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Medical_teleconference.Models.Photo>
+
+<div class="col-lg-3" id="listDiv">
+    <p>List of Photos:</p>
+    @if (Model != null)
+    {
+        <ul id="imageList">
+            @foreach (var item in Model)
+            {
+            @*<input type="button" id="imgToTr" onclick="showImage(@item.photo);" value="@Html.DisplayFor(medelItem => item.PhotoId)" />
+                <input type="hidden" id="imgDataToTr" value="@Html.DisplayFor(modelItem => item.photo)" />
+            *@
+            <li>
+                <a>
+                    @Ajax.ActionLink(item.PhotoId.ToString(), "Show", new { id = item.PhotoId }, new AjaxOptions()
+           {
+               HttpMethod = "Get",
+               UpdateTargetId = "imageToTransform",
+
+           }, new { data = item.PhotoId })
+                </a>
+            </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <h2>Nothing to show here</h2>
+    }
+</div>
